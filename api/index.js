@@ -69,12 +69,10 @@ app.get("/tasks", authenticateToken, (req, res) => {
 
 app.post("/tasks", authenticateToken, (req, res) => {
   const newTask = {
-    id: tasks.length + 1, // Incrementing ID to avoid duplicates
-    title: req.body.title,
-    status: "inProgress", // Default status is "In Progress"
+    id: tasks.length + 1,
+    status: "inProgress",
   };
 
-  // Update previous task's status to "pending" if it was in "inProgress"
   const inProgressTask = tasks.find((task) => task.status === "inProgress");
   if (inProgressTask) {
     inProgressTask.status = "pending";
@@ -101,10 +99,9 @@ app.put("/tasks/:id", authenticateToken, (req, res) => {
   }
 });
 
-// Update the status of a task (e.g., mark as completed)
 app.put("/tasks/:id/status", authenticateToken, (req, res) => {
   const taskId = parseInt(req.params.id, 10);
-  const { status } = req.body; // Expecting a status like "completed" or "pending"
+  const { status } = req.body;
 
   const taskIndex = tasks.findIndex((task) => task.id === taskId);
   if (taskIndex !== -1) {
