@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# TaskORG React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### `How to Run the backend Server Locally`
+Follow these steps to set up and run the server on your local machine:
 
-## Available Scripts
+1. Clone the Repository
+First, clone the repository to your local machine using the following command:
 
-In the project directory, you can run:
+### git clone https://github.com/JAI-VINOD-GIT/TaskORG.git
 
-### `npm start`
+2. Navigate to the Project Directory
+Change to the directory where the project is located:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### cd taskorg
+### cd api
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+4. Install Dependencies
+Make sure you have Node.js and npm installed. If not, download and install Node.js from the official website.
+Once Node.js and npm are installed, run the following command to install the required dependencies:
 
-### `npm test`
+### npm install
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+express: A web framework for Node.js
+jsonwebtoken: A library to sign and verify JWT tokens
+cors: Middleware to enable Cross-Origin Resource Sharing
+body-parser: Middleware to parse incoming request bodies
 
-### `npm run build`
+4. Run the Server
+Once the dependencies are installed, you can start the server by running:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### node index.js
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+By default, the server will run on port 5000. You should see a message like:
+Server running on port 5000
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `How to Run the Frontend React App`
 
-### `npm run eject`
+1. Clone the Repository
+First, clone the repository to your local machine using the following command:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### git clone https://github.com/JAI-VINOD-GIT/TaskORG.git
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Navigate to the Frontend Project Directory
+Change to the directory where the React app is located 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### cd taskorg
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Install Dependencies
+Make sure you have Node.js and npm installed. If not, download and install Node.js from the official website.
+Once Node.js and npm are installed, run the following command to install the required dependencies for the React app:
 
-## Learn More
+### npm install
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5. Run the React App
+Once the dependencies are installed and the API URL is set, you can start the React development server by running:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### npm start
 
-### Code Splitting
+The React app will run on http://localhost:3000 by default. You should see your React app running in the browser.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### The Frontend is hosted in Netlify : https://taskorz.netlify.app/login
+### The Backend is hosted in vercel : https://taskorz-3rcvs1m8z-jaivinodgits-projects.vercel.app/
+### Since there is no db setup at the moment , I haven't linked them with live api url's.
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
