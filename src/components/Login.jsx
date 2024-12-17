@@ -17,12 +17,12 @@ const Login = ({ setIsAuthenticated }) => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/login",
+        "http://localhost:5000/login",
         {
           email,
           password,
         },
-        { withCredentials: true }
+        
       );
       localStorage.setItem("token", data.token);
       setIsAuthenticated(true);

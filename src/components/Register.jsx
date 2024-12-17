@@ -15,15 +15,11 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(
-        "https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/register",
-        {
-          username,
-          email,
-          password,
-        },
-        { withCredentials: true }
-      );
+      await axios.post("http://localhost:5000/register", {
+        username,
+        email,
+        password,
+      });
       toast.success("Registration successful. You can now log in.");
       navigate("/login");
     } catch (error) {

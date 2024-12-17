@@ -24,15 +24,16 @@ const Dashboard = ({ setIsAuthenticated }) => {
     }
 
     const fetchTasks = async () => {
-      const { data } = await axios.get("https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/tasks", {
+      const { data } = await axios.get("http://localhost:5000/tasks", {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log("Fetched tasks:", data);
       setTasks(data);
     };
 
     const fetchUser = async () => {
       try {
-        const { data } = await axios.get("https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/users", {
+        const { data } = await axios.get("http://localhost:5000/users", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(data);
@@ -66,9 +67,10 @@ const Dashboard = ({ setIsAuthenticated }) => {
       return;
     }
 
-  
+    console.log("New task title:", newTask);
+
     const taskExists = tasks.some(
-      (task) => task.title.toLowerCase() === newTask.trim().toLowerCase()
+      (task) => task.title?.toLowerCase() === newTask.trim().toLowerCase()
     );
     if (taskExists) {
       toast.error("This task already exists.");
@@ -76,31 +78,41 @@ const Dashboard = ({ setIsAuthenticated }) => {
     }
 
     const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("No authentication token found. Please log in.");
+      return;
+    }
+
     try {
       const { data } = await axios.post(
-        "https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/tasks",
+        "http://localhost:5000/tasks",
         { title: newTask },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      console.log("New task data:", data, newTask);
+      const updatedTasks = tasks.map((task) =>
+        task.status === "inProgress" ? { ...task, status: "pending" } : task
+      );
 
-      const inProgressTask = tasks.find((task) => task.status === "inProgress");
-      if (inProgressTask) {
-        inProgressTask.status = "pending";
-      }
-
-      setTasks([...tasks, { ...data, status: "inProgress" }]);
+      setTasks([...updatedTasks, { ...data, status: "inProgress" }]);
       setNewTask("");
       toast.success("Task added successfully.");
     } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message || "Could not add task.");
+      } else if (error.request) {
+        toast.error("Server did not respond. Please try again later.");
+      } else {
+        toast.error("Error occurred. Please try again.");
+      }
       console.error("Error adding task:", error);
-      toast.error("Could not add task. Please try again.");
     }
   };
 
   const deleteTask = async (taskId) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/tasks/${taskId}`, {
+      await axios.delete(`http://localhost:5000/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(tasks.filter((task) => task.id !== taskId));
@@ -115,7 +127,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
     const token = localStorage.getItem("token");
     try {
       await axios.put(
-        `https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/tasks/${taskId}/status`,
+        `http://localhost:5000/tasks/${taskId}/status`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -134,6 +146,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
     const taskExists = tasks.some(
       (task) =>
         task.id !== taskId &&
+        task.title &&
         task.title.toLowerCase() === editTaskTitle.trim().toLowerCase()
     );
 
@@ -144,7 +157,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
 
     try {
       const { data } = await axios.put(
-        `https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/tasks/${taskId}`,
+        `http://localhost:5000/tasks/${taskId}`,
         { title: editTaskTitle },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -167,8 +180,9 @@ const Dashboard = ({ setIsAuthenticated }) => {
     setEditTaskTitle("");
   };
 
-  const filteredTasks = tasks.filter((task) =>
-    task.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredTasks = tasks.filter(
+    (task) =>
+      task.title && task.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (

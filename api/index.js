@@ -4,13 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const app = express();
-const corsOptions = {
-  origin: ["http://localhost:3000", "https://taskorz.netlify.app"],
-  methods: "GET,POST,PUT,DELETE,OPTIONS",
-  allowedHeaders: "Content-Type, Authorization",
-};
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 
 const users = [
@@ -76,6 +70,7 @@ app.get("/tasks", authenticateToken, (req, res) => {
 app.post("/tasks", authenticateToken, (req, res) => {
   const newTask = {
     id: tasks.length + 1,
+    title: req.body.title,
     status: "inProgress",
   };
 
