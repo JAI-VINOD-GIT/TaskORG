@@ -17,7 +17,7 @@ const Login = ({ setIsAuthenticated }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const { data } = await axios.post("https://taskorz-27h9mnhkq-jaivinodgits-projects.vercel.app/login", {
+      const { data } = await axios.post("https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/login", {
         email,
         password,
       });

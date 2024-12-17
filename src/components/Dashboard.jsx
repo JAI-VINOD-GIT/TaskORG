@@ -24,7 +24,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
     }
 
     const fetchTasks = async () => {
-      const { data } = await axios.get("https://taskorz-27h9mnhkq-jaivinodgits-projects.vercel.app/tasks", {
+      const { data } = await axios.get("https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/tasks", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(data);
@@ -32,7 +32,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
 
     const fetchUser = async () => {
       try {
-        const { data } = await axios.get("https://taskorz-27h9mnhkq-jaivinodgits-projects.vercel.app/users", {
+        const { data } = await axios.get("https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/users", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(data);
@@ -78,7 +78,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
     const token = localStorage.getItem("token");
     try {
       const { data } = await axios.post(
-        "https://taskorz-27h9mnhkq-jaivinodgits-projects.vercel.app/tasks",
+        "https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/tasks",
         { title: newTask },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -100,7 +100,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
   const deleteTask = async (taskId) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`https://taskorz-27h9mnhkq-jaivinodgits-projects.vercel.app/tasks/${taskId}`, {
+      await axios.delete(`https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(tasks.filter((task) => task.id !== taskId));
@@ -115,7 +115,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
     const token = localStorage.getItem("token");
     try {
       await axios.put(
-        `https://taskorz-27h9mnhkq-jaivinodgits-projects.vercel.app/tasks/${taskId}/status`,
+        `https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/tasks/${taskId}/status`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -144,7 +144,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
 
     try {
       const { data } = await axios.put(
-        `https://taskorz-27h9mnhkq-jaivinodgits-projects.vercel.app/tasks/${taskId}`,
+        `https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/tasks/${taskId}`,
         { title: editTaskTitle },
         { headers: { Authorization: `Bearer ${token}` } }
       );

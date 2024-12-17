@@ -15,7 +15,7 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post("https://taskorz-27h9mnhkq-jaivinodgits-projects.vercel.app/register", {
+      await axios.post("https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/register", {
         username,
         email,
         password,
