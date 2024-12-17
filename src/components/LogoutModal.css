@@ -1,0 +1,36 @@
+.modal-header {
+  display: block;
+  align-items: center;
+  justify-content: center;
+}
+.fade {
+  backdrop-filter: blur(5px) !important;
+}
+
+.modal-footer {
+  display: block !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-dialog {
+  position: fixed;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  max-width: 500px;
+}
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+.modal-content {
+  border: transparent;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}

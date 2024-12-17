@@ -1,0 +1,11 @@
+.btn-primary {
+  background-color: blueviolet !important;
+  border: transparent !important;
+}
+.btn-primary:hover {
+  background-color: rgb(174, 69, 254) !important;
+}
+
+.login-text {
+  color: blueviolet !important;
+}
