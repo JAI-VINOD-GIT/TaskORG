@@ -17,10 +17,14 @@ const Login = ({ setIsAuthenticated }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const { data } = await axios.post("https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/login", {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        "https://taskorz-aczzbca33-jaivinodgits-projects.vercel.app/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
       localStorage.setItem("token", data.token);
       setIsAuthenticated(true);
       navigate("/dashboard");
