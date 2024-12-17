@@ -11,8 +11,8 @@ const users = [
   {
     id: 1,
     username: "jai",
-    email: "jaivinodv@gmail.com",
-    password: "JAIvinod@7120",
+    email: "jaivinod@gmail.com",
+    password: "password",
   },
 ];
 let tasks = [
