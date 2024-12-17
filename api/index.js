@@ -6,12 +6,11 @@ const bodyParser = require("body-parser");
 const app = express();
 const corsOptions = {
   origin: ["http://localhost:3000", "https://taskorz.netlify.app"],
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-  optionsSuccessStatus: 204,
+  methods: "GET,POST,PUT,DELETE,OPTIONS",
+  allowedHeaders: "Content-Type, Authorization",
 };
-
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(bodyParser.json());
 
 const users = [
