@@ -23,6 +23,20 @@ const Dashboard = ({ setIsAuthenticated }) => {
       return;
     }
 
+    const verifyToken = async () => {
+      try {
+        await axios.get("http://localhost:5000/verify-token", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        fetchTasks();
+        fetchUser();
+      } catch (error) {
+        console.error("Token verification failed:", error);
+        setIsAuthenticated(false);
+        toast.error("Session expired. Please log in again.");
+      }
+    };
+
     const fetchTasks = async () => {
       const { data } = await axios.get("http://localhost:5000/tasks", {
         headers: { Authorization: `Bearer ${token}` },
@@ -43,8 +57,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
       }
     };
 
-    fetchTasks();
-    fetchUser();
+    verifyToken();
   }, [setIsAuthenticated]);
 
   const handleLogout = () => {
