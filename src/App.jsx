@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,15 +11,29 @@ import Register from "./components/Register";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const validateToken = (token) => {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      return payload.exp * 1000 > Date.now();
+    } catch (e) {
+      return false;
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
+    if (token && validateToken(token)) {
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
     }
+    setIsLoading(false);
   }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Router>
@@ -29,9 +42,9 @@ const App = () => {
           path="/"
           element={
             isAuthenticated ? (
-              <Navigate to="/dashboard" />
+              <Navigate to="/dashboard" replace />
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/login" replace />
             )
           }
         />
@@ -46,7 +59,7 @@ const App = () => {
             isAuthenticated ? (
               <Dashboard setIsAuthenticated={setIsAuthenticated} />
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/login" replace />
             )
           }
         />

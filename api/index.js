@@ -23,9 +23,16 @@ let tasks = [
 
 const authenticateToken = (req, res, next) => {
   const token = req.headers["authorization"]?.split(" ")[1];
-  if (!token) return res.sendStatus(401);
+  console.log("Token received:", token);
+  if (!token) {
+    console.log("No token provided");
+    return res.sendStatus(401);
+  }
   jwt.verify(token, "secretkey", (err, user) => {
-    if (err) return res.sendStatus(403);
+    if (err) {
+      console.log("Token verification error:", err);
+      return res.sendStatus(403);
+    }
     req.user = user;
     next();
   });
@@ -111,6 +118,15 @@ app.put("/tasks/:id/status", authenticateToken, (req, res) => {
   } else {
     res.status(404).send("Task not found");
   }
+});
+
+app.get("/verify-token", authenticateToken, (req, res) => {
+  res.sendStatus(200);
+});
+
+app.get("/all-users", authenticateToken, (req, res) => {
+  const usersWithoutPasswords = users.map(({ password, ...user }) => user);
+  res.json(usersWithoutPasswords);
 });
 
 app.listen(5000, () => console.log("Server running on port 5000"));

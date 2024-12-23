@@ -17,7 +17,6 @@ const Dashboard = ({ setIsAuthenticated }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
     if (!token) {
       setIsAuthenticated(false);
       return;
@@ -28,6 +27,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
         await axios.get("http://localhost:5000/verify-token", {
           headers: { Authorization: `Bearer ${token}` },
         });
+        setIsAuthenticated(true);
         fetchTasks();
         fetchUser();
       } catch (error) {
