@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -12,18 +12,36 @@ const Login = ({ setIsAuthenticated }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .get("http://localhost:5000/verify-token", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(() => {
+          setIsAuthenticated(true);
+          navigate("/dashboard");
+        })
+        .catch(() => {
+          localStorage.removeItem("token");
+          setIsAuthenticated(false);
+        });
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, [setIsAuthenticated, navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const { data } = await axios.post(
-        "http://localhost:5000/login",
-        {
-          email,
-          password,
-        },
-        
-      );
+      const { data } = await axios.post("http://localhost:5000/login", {
+        email,
+        password,
+      });
       localStorage.setItem("token", data.token);
       setIsAuthenticated(true);
       navigate("/dashboard");
